@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Martín Soria — Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preload" as="font" type="font/otf" href="./assets/DxSitrus-Expanded.otf" crossorigin>
+  <link rel="preload" as="font" type="font/otf" href="./assets/fonts/SFProDisplay-Heavy.otf" crossorigin>
+  <link rel="preload" as="font" type="font/otf" href="./assets/fonts/SFProDisplay-Medium.otf" crossorigin>
+  <style>
+    @font-face { font-family: "DX Sitrus"; src: url("./assets/DxSitrus-Expanded.otf") format("opentype"); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: "DX Sitrus"; src: url("./assets/DxSitrus-ExpandedItalic.otf") format("opentype"); font-weight: 400; font-style: italic; font-display: swap; }
+    @font-face { font-family: "SF Pro Display"; src: url("./assets/fonts/SFProDisplay-Medium.otf") format("opentype"); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: "SF Pro Display"; src: url("./assets/fonts/SFProDisplay-Semibold.otf") format("opentype"); font-weight: 600; font-style: normal; font-display: swap; }
+    @font-face { font-family: "SF Pro Display"; src: url("./assets/fonts/SFProDisplay-Heavy.otf") format("opentype"); font-weight: 800; font-style: normal; font-display: swap; }
+    html { background: #07040e; }
+    body { margin: 0; background: #07040e; color: #f1ecf7; font-family: "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    a { color: #f1ecf7; text-decoration: none; }
+    a:hover { color: #ffffff; }
+    ::selection { background: #3a1d6e; color: #fff; }
+    @media (max-width: 760px) {
+      [data-m="hero-title"] { width: 88vw !important; left: 6vw !important; bottom: 14vh !important; }
+      [data-m="hero-ui"] { right: 6vw !important; bottom: 6vh !important; }
+      [data-m="posters-grid"] { row-gap: 9vh !important; }
+      [data-m="posters-grid"] > figure { margin-top: 0 !important; }
+      [data-m="posters-grid"] > figure:nth-child(odd) { grid-column: 1 / span 10 !important; }
+      [data-m="posters-grid"] > figure:nth-child(even) { grid-column: 3 / span 10 !important; }
+      [data-m="film-track"] { padding-left: 10vw !important; gap: 6vw !important; margin-top: 4vh !important; }
+      [data-m="film-track"] > figure { margin-top: 0 !important; }
+      [data-m="film-land"] { width: 82vw !important; }
+      [data-m="film-port"] { width: 62vw !important; }
+      [data-m="about-label"] { top: 14vh !important; right: 6vw !important; }
+      [data-m="contact-btns"] { flex-direction: column !important; align-items: stretch !important; width: min(100%, 320px); }
+      [data-m="contact-btns"] > a { min-width: 0 !important; }
+      [data-fx="pack-box"] img, [data-fx="pack-logo"] img { filter: none !important; }
+    }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+  </style>
+</helmet>
+
+<div data-root style="position:relative;background:#07040e;color:#f1ecf7;font-family:'SF Pro Display','Helvetica Neue',Helvetica,Arial,sans-serif;overflow:clip">
+
+  <!-- HERO -->
+  <section data-scene="hero" data-screen-label="Hero" aria-label="Portada" style="position:relative;height:230vh">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;background:#07040e">
+      <video data-fx="hero-bg" src="./assets/hero.mp4" poster="./assets/hero-bg.png" muted="{{ true }}" playsInline="{{ true }}" preload="auto" aria-hidden="true" style="position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;object-position:center;transform-origin:50% 40%;will-change:transform"></video>
+      <canvas data-fx="hero-canvas" aria-hidden="true" style="position:absolute;inset:-6%;width:112%;height:112%;opacity:0;transform-origin:50% 40%;will-change:transform"></canvas>
+      <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(7,4,14,0.55),rgba(7,4,14,0.42) 50%,rgba(7,4,14,0.6));pointer-events:none"></div>
+      <div data-fx="hero-veil" style="position:absolute;inset:0;background:#07040e;opacity:0;will-change:opacity;pointer-events:none"></div>
+      <div data-fx="hero-title" data-m="hero-title" style="position:absolute;left:calc(clamp(28px,6vw,110px) - min(72vw,1000px) * 0.02);bottom:clamp(28px,6vw,110px);width:min(72vw,1000px);will-change:opacity">
+        <img src="./assets/hero-title.png" alt="PORTFOLIO" style="display:block;width:100%;height:auto" />
+      </div>
+      <div data-fx="hero-ui" data-m="hero-ui" style="position:absolute;right:clamp(28px,6vw,110px);bottom:clamp(28px,6vw,110px);display:flex;align-items:center;gap:14px;pointer-events:none;will-change:opacity">
+        <span style="font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#c9bfd8">Desliza</span>
+        <span data-fx="scroll-line" style="display:block;width:36px;height:1px;background:#c9bfd8;transform-origin:100% 50%"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section data-scene="about" data-screen-label="About" aria-label="Sobre mí" style="position:relative;min-height:170vh;padding:0 clamp(20px,5vw,96px) 20vh">
+    <div style="position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;pointer-events:none">
+      <span data-fx="about-label" data-m="about-label" style="position:absolute;top:clamp(80px,18vh,200px);right:clamp(24px,10vw,180px);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;color:#c9bfd8;will-change:opacity,transform">Sobre mí</span>
+      <div data-fx="about-line" style="position:absolute;left:0;bottom:clamp(40px,10vh,120px);height:2px;width:clamp(120px,32vw,520px);background:linear-gradient(90deg,#8f3cff,#c45cff 55%,rgba(196,92,255,0));transform-origin:0 50%;will-change:transform,opacity"></div>
+      <h1 data-fx="about-name" style="margin:0;padding-right:clamp(24px,12vw,220px);font-weight:800;font-size:clamp(48px,11.5vw,230px);line-height:0.92;letter-spacing:0.005em;transform-origin:0 100%;will-change:transform">{{ site.name }}</h1>
+      <div data-fx="about-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(24px,5vw,96px);margin-top:clamp(28px,5vh,64px);padding-right:clamp(24px,12vw,220px);will-change:opacity,transform">
+        <p style="margin:0;font-size:clamp(13px,1.15vw,17px);letter-spacing:0.1em;text-transform:uppercase;font-weight:600">{{ site.role }}</p>
+        <p style="margin:0;max-width:42ch;font-size:clamp(16px,1.45vw,21px);line-height:1.45;letter-spacing:-0.005em;color:#c9bfd8;text-align:justify;text-align-last:left;hyphens:auto">{{ site.bio }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK TRANSITION -->
+  <section data-scene="work" data-screen-label="Work" aria-label="Trabajo" style="position:relative;height:200vh">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center">
+      <img data-fx="work-tex" src="./assets/hero-bg.png" alt="" aria-hidden="true" loading="lazy" decoding="async" style="position:absolute;inset:-20%;width:140%;height:140%;object-fit:cover;filter:blur(60px) saturate(1.2);opacity:0;will-change:opacity,transform;pointer-events:none" />
+      <div data-fx="work-title" style="position:relative;white-space:nowrap;font-family:'DX Sitrus',serif;font-size:clamp(100px,30vw,600px);line-height:0.85;letter-spacing:-0.02em;padding-left:6vw;will-change:transform">{{ workTitle }}</div>
+    </div>
+  </section>
+
+  <!-- 01 POSTERS — mosaico editorial con parallax por profundidad -->
+  <section data-scene="posters" data-screen-label="01 Posters" aria-label="Posters" style="position:relative;padding:22vh clamp(20px,5vw,96px) 12vh">
+    <div style="display:flex;align-items:baseline;gap:clamp(16px,3vw,48px)">
+      <div>
+        <h2 data-fx="cat-title" style="margin:0;font-weight:800;font-size:clamp(56px,12vw,220px);line-height:0.88;letter-spacing:-0.02em;transform-origin:0 100%;will-change:transform">Posters</h2>
+      </div>
+    </div>
+    <div data-m="posters-grid" style="display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,3vw,48px);row-gap:clamp(48px,10vh,140px);margin-top:12vh;align-items:start">
+      <figure data-fx="tile" data-depth="0.3" data-hover style="grid-column:1 / span 6;margin:0 0 0;position:relative;will-change:transform,opacity">
+        <div style="position:relative;aspect-ratio:2480/3508;background:#0e0818"><img src="{{ poster1.image }}" alt="{{ poster1.title }}" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain" /></div>
+        <figcaption style="margin-top:14px;font-size:14px;font-weight:600;color:#f1ecf7">{{ poster1.title }}</figcaption>
+      </figure>
+      <figure data-fx="tile" data-depth="1" data-hover style="grid-column:8 / span 5;margin:16vh 0 0;position:relative;will-change:transform,opacity">
+        <div style="position:relative;aspect-ratio:2480/3508;background:#0e0818"><img src="{{ poster2.image }}" alt="{{ poster2.title }}" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain" /></div>
+        <figcaption style="margin-top:14px;font-size:14px;font-weight:600;color:#f1ecf7">{{ poster2.title }}</figcaption>
+      </figure>
+      <figure data-fx="tile" data-depth="0.8" data-hover style="grid-column:2 / span 5;margin:0 0 0;position:relative;will-change:transform,opacity">
+        <div style="position:relative;aspect-ratio:2480/3508;background:#0e0818"><img src="{{ poster3.image }}" alt="{{ poster3.title }}" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain" /></div>
+        <figcaption style="margin-top:14px;font-size:14px;font-weight:600;color:#f1ecf7">{{ poster3.title }}</figcaption>
+      </figure>
+      <figure data-fx="tile" data-depth="0.4" data-hover style="grid-column:7 / span 6;margin:10vh 0 0;position:relative;will-change:transform,opacity">
+        <div style="position:relative;aspect-ratio:2480/3508;background:#0e0818"><img src="{{ poster4.image }}" alt="{{ poster4.title }}" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain" /></div>
+        <figcaption style="margin-top:14px;font-size:14px;font-weight:600;color:#f1ecf7">{{ poster4.title }}</figcaption>
+      </figure>
+      <figure data-fx="tile" data-depth="0.6" data-hover style="grid-column:4 / span 6;margin:0 0 0;position:relative;will-change:transform,opacity">
+        <div style="position:relative;aspect-ratio:2480/3508;background:#0e0818"><img src="{{ poster5.image }}" alt="{{ poster5.title }}" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain" /></div>
+        <figcaption style="margin-top:14px;font-size:14px;font-weight:600;color:#f1ecf7">{{ poster5.title }}</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 02 PACKAGING — universo rojo: chevron de fondo con parallax, empaque protagonista, logo como capa flotante -->
+  <section data-scene="packaging" data-screen-label="02 Packaging" aria-label="Packaging" style="position:relative;height:320vh">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;background:#3a0509">
+      <img data-fx="pack-bg" src="./assets/packaging/chevron.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" style="position:absolute;left:-10%;top:-15%;width:120%;height:130%;object-fit:cover;opacity:0.28;will-change:transform,opacity;pointer-events:none" />
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 55%,rgba(200,16,46,0.55),rgba(58,5,9,0) 70%);pointer-events:none"></div>
+      <div style="position:absolute;left:0;right:0;top:0;height:40vh;background:linear-gradient(to bottom,#07040e,rgba(7,4,14,0));pointer-events:none;z-index:1"></div>
+      <div style="position:absolute;left:0;right:0;bottom:0;height:35vh;background:linear-gradient(to top,#07040e,rgba(7,4,14,0));pointer-events:none;z-index:1"></div>
+      <div style="position:absolute;top:clamp(24px,6vh,72px);left:clamp(20px,5vw,96px);display:flex;align-items:baseline;gap:clamp(16px,3vw,48px);z-index:3;pointer-events:none">
+        <h2 data-fx="pack-title" style="margin:0;font-weight:800;font-size:clamp(48px,10vw,190px);line-height:0.88;letter-spacing:-0.02em;transform-origin:0 0;will-change:transform,opacity">Packaging</h2>
+      </div>
+      <div data-fx="pack-logo" style="position:absolute;left:50%;top:50%;width:clamp(200px,30vw,520px);transform:translate(-50%,-50%);z-index:2;will-change:transform,opacity;pointer-events:none">
+        <img src="./assets/packaging/techdeck-logo.png" alt="Tech Deck" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;filter:drop-shadow(0 30px 60px rgba(0,0,0,0.5))" />
+      </div>
+      <div data-fx="pack-box" data-hover style="position:absolute;left:50%;top:50%;width:clamp(280px,44vw,720px);aspect-ratio:1/1;transform:translate(-50%,-50%);z-index:3;will-change:transform,opacity">
+        <img src="./assets/packaging/techdeck-box.webp" alt="Empaque Tech Deck — fingerskate" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 50px 80px rgba(0,0,0,0.65))" />
+      </div>
+      <div data-fx="pack-meta" style="position:absolute;left:clamp(20px,5vw,96px);bottom:clamp(24px,5vh,64px);z-index:4;will-change:opacity,transform">
+        <div style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#f1ecf7">Diseño de empaque</div>
+        <div style="margin-top:6px;font-size:clamp(15px,1.3vw,19px);font-weight:600">{{ pack1.title }}</div>
+        <p style="margin:10px 0 0;max-width:46ch;font-size:clamp(13px,1.05vw,15px);line-height:1.45;color:#e8d9dc">{{ pack1.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 PHOTOGRAPHY — tira horizontal controlada por scroll; la foto que pasa por el centro toma foco -->
+  <section data-scene="photo" data-screen-label="03 Photography" aria-label="Photography" style="position:relative;height:340vh">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center">
+      <div data-fx="photo-head" style="position:absolute;top:clamp(24px,6vh,72px);left:clamp(20px,5vw,96px);display:flex;flex-direction:column;align-items:flex-start;gap:12px;z-index:3;pointer-events:none;transform-origin:0 0;will-change:transform">
+        <h2 data-fx="photo-title" style="margin:0;font-weight:800;font-size:clamp(44px,9.5vw,180px);line-height:0.88;letter-spacing:-0.02em;will-change:transform,opacity">Fotografía</h2>
+        <p data-fx="photo-sub" style="margin:0;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#a89fb8">Proyectos personales destacados</p>
+      </div>
+      <div data-fx="film-track" data-m="film-track" style="display:flex;align-items:center;gap:clamp(20px,4vw,72px);padding-left:42vw;width:max-content;margin-top:8vh;will-change:transform">
+        <figure data-fx="film" data-m="film-port" data-hover style="flex:none;margin:0 0 0;width:clamp(200px,26vw,480px);will-change:transform,opacity">
+          <div style="aspect-ratio:2/3;background:#0e0818"><img src="{{ photo3.image }}" alt="{{ photo3.title }}" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain" /></div>
+          <figcaption data-fx="film-cap" style="margin-top:14px;will-change:opacity,transform"><div style="font-size:14px;font-weight:600;color:#f1ecf7">{{ photo3.title }}</div><div style="margin-top:3px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#a89fb8">{{ photo3.description }}</div></figcaption>
+        </figure>
+        <figure data-fx="film" data-m="film-land" data-hover style="flex:none;margin:10vh 0 0;width:clamp(300px,48vw,900px);will-change:transform,opacity">
+          <div style="aspect-ratio:3/2;background:#0e0818"><img src="{{ photo1.image }}" alt="{{ photo1.title }}" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain" /></div>
+          <figcaption data-fx="film-cap" style="margin-top:14px;will-change:opacity,transform"><div style="font-size:14px;font-weight:600;color:#f1ecf7">{{ photo1.title }}</div><div style="margin-top:3px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#a89fb8">{{ photo1.description }}</div></figcaption>
+        </figure>
+        <figure data-fx="film" data-m="film-land" data-hover style="flex:none;margin:-8vh 0 0;width:clamp(320px,56vw,1040px);will-change:transform,opacity">
+          <div style="aspect-ratio:3/2;background:#0e0818"><img src="{{ photo2.image }}" alt="{{ photo2.title }}" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain" /></div>
+          <figcaption data-fx="film-cap" style="margin-top:14px;will-change:opacity,transform"><div style="font-size:14px;font-weight:600;color:#f1ecf7">{{ photo2.title }}</div><div style="margin-top:3px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#a89fb8">{{ photo2.description }}</div></figcaption>
+        </figure>
+        <figure data-fx="film" data-m="film-land" data-hover style="flex:none;margin:6vh 0 0;width:clamp(280px,44vw,820px);will-change:transform,opacity">
+          <div style="aspect-ratio:1496/1023;background:#0e0818"><img src="{{ photo4.image }}" alt="{{ photo4.title }}" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:contain" /></div>
+          <figcaption data-fx="film-cap" style="margin-top:14px;will-change:opacity,transform"><div style="font-size:14px;font-weight:600;color:#f1ecf7">{{ photo4.title }}</div><div style="margin-top:3px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#a89fb8">{{ photo4.description }}</div></figcaption>
+        </figure>
+        <div style="flex:none;width:16vw"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / CLOSE -->
+  <section data-scene="contact" data-screen-label="Contact" aria-label="Contacto" style="position:relative;height:100vh;padding:0 clamp(20px,5vw,96px);display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden">
+    <img data-fx="contact-tex" src="./assets/hero-bg.png" alt="" aria-hidden="true" loading="lazy" decoding="async" style="position:absolute;inset:-20%;width:140%;height:140%;object-fit:cover;filter:blur(70px) saturate(1.3);opacity:0.5;pointer-events:none;will-change:transform,opacity" />
+    <div style="position:absolute;left:0;right:0;top:0;height:45vh;background:linear-gradient(to bottom,#07040e 0%,rgba(7,4,14,0.7) 45%,rgba(7,4,14,0) 100%);pointer-events:none"></div>
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;width:100%">
+      <h2 data-fx="contact-title" style="margin:0;font-family:'DX Sitrus',serif;font-weight:400;font-size:clamp(64px,17vw,340px);line-height:0.85;letter-spacing:-0.02em;will-change:transform">Contacto</h2>
+      <div data-m="contact-btns" style="display:flex;flex-wrap:wrap;justify-content:center;gap:clamp(12px,2vw,28px);margin-top:clamp(36px,7vh,96px)">
+        <a data-hover href="{{ mailto }}" target="_blank" rel="noopener" onClick="{{ onContactClick }}" style="display:inline-flex;align-items:center;justify-content:center;min-width:clamp(160px,18vw,260px);padding:20px clamp(28px,3.5vw,52px);border-radius:999px;background-color:rgba(241,236,247,0.08);background-image:linear-gradient(110deg,rgba(255,255,255,0) 35%,rgba(255,255,255,0.16) 50%,rgba(255,255,255,0) 65%);background-size:250% 100%;animation:shimmer 5s linear infinite;border:1px solid rgba(241,236,247,0.22);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);font-size:13px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;color:#f1ecf7;transition:background 0.35s ease,color 0.35s ease,border-color 0.35s ease,transform 0.35s cubic-bezier(.2,.7,.2,1)" style-hover="background-color:rgba(241,236,247,0.92);background-image:none;color:#07040e;border-color:rgba(241,236,247,0.9);transform:translateY(-2px)"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3.5 6.5 12 13l8.5-6.5"></path></svg><span style="margin-left:12px">Email</span></a>
+        <a data-hover href="{{ whatsappUrl }}" target="_blank" rel="noopener" onClick="{{ onContactClick }}" style="display:inline-flex;align-items:center;justify-content:center;min-width:clamp(160px,18vw,260px);padding:20px clamp(28px,3.5vw,52px);border-radius:999px;background-color:rgba(241,236,247,0.08);background-image:linear-gradient(110deg,rgba(255,255,255,0) 35%,rgba(255,255,255,0.16) 50%,rgba(255,255,255,0) 65%);background-size:250% 100%;animation:shimmer 5s linear infinite;border:1px solid rgba(241,236,247,0.22);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);font-size:13px;letter-spacing:0.16em;text-transform:uppercase;font-weight:500;color:#f1ecf7;transition:background 0.35s ease,color 0.35s ease,border-color 0.35s ease,transform 0.35s cubic-bezier(.2,.7,.2,1)" style-hover="background-color:rgba(241,236,247,0.92);background-image:none;color:#07040e;border-color:rgba(241,236,247,0.9);transform:translateY(-2px)"><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="flex:none"><path d="M12 2.2a9.8 9.8 0 0 0-8.4 14.8L2.2 21.8l4.9-1.3A9.8 9.8 0 1 0 12 2.2Zm0 1.7a8.1 8.1 0 1 1-4.1 15.1l-.3-.2-2.9.8.8-2.8-.2-.3A8.1 8.1 0 0 1 12 3.9Zm-3 4c-.2 0-.5 0-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.2 5 4.4 2.5 1 3 .8 3.5.7.5 0 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.1-.7.1l-.9 1.1c-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.5l-.9-2.1c-.2-.5-.4-.5-.7-.5H9Z"></path></svg><span style="margin-left:12px">WhatsApp</span></a>
+      </div>
+    </div>
+    <div style="position:absolute;left:0;right:0;bottom:clamp(20px,4vh,40px);text-align:center;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#a89fb8">Martín Soria</div>
+  </section>
+
+  <!-- 00 LOADING -->
+  <sc-if value="{{ loading }}" hint-placeholder-val="{{ true }}">
+    <div data-fx="loader" role="status" aria-live="polite" style="position:fixed;inset:0;z-index:200;background:#050309;color:#a06bff;font-family:'SF Mono',Menlo,Consolas,'Courier New',monospace;display:flex;align-items:center;justify-content:center;will-change:clip-path,transform">
+      <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(160,107,255,0.05) 1px,transparent 1px);background-size:100% 3px;pointer-events:none"></div>
+      <div style="position:relative;width:min(560px,86vw);font-size:clamp(11px,1.1vw,13px);letter-spacing:0.06em;text-transform:uppercase;line-height:1.7">
+        <div style="display:flex;justify-content:space-between;color:#6a4a9e;margin-bottom:28px"><span>LOADING PORTFOLIO</span><span>v1.0.0</span></div>
+        <div style="color:#d9c8ff;font-size:clamp(13px,1.4vw,16px)">{{ loadStatus }}<span data-fx="caret" style="display:inline-block;width:0.6em;height:1em;vertical-align:-0.15em;background:#a06bff;margin-left:2px"></span></div>
+        <div style="margin-top:18px;height:10px;border:1px solid #6a4a9e;padding:2px"><div style="height:100%;background:#a06bff;width:{{ loadWidth }};transition:width 0.18s linear"></div></div>
+        <div style="display:flex;justify-content:space-between;margin-top:10px"><span>{{ loadPct }} COMPLETE</span><span style="color:#6a4a9e">{{ loadBlocks }}</span></div>
+        <div style="margin-top:36px;color:#6a4a9e;font-size:10px;letter-spacing:0.14em">MARTÍN SORIA — QUITO, EC</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- FLOATING UI -->
+  <a data-fx="contact-btn" data-hover href="{{ whatsappUrl }}" target="_blank" rel="noopener" aria-label="Contáctame por WhatsApp" onClick="{{ onContactClick }}" style="position:fixed;right:clamp(18px,3vw,40px);bottom:clamp(18px,3vw,36px);z-index:50;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;color:#f1ecf7;padding:14px 22px;border-radius:999px;background:rgba(241,236,247,0.08);border:1px solid rgba(241,236,247,0.22);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity 0.6s cubic-bezier(.2,.7,.2,1),transform 0.6s cubic-bezier(.2,.7,.2,1),background 0.35s ease,color 0.35s ease,border-color 0.35s ease" style-hover="background:rgba(241,236,247,0.92);color:#07040e;border-color:rgba(241,236,247,0.9)">Contáctame</a>
+  <div data-fx="cursor" aria-hidden="true" style="position:fixed;left:0;top:0;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:#f1ecf7;mix-blend-mode:difference;pointer-events:none;z-index:100;opacity:0;will-change:transform"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;parallaxIntensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:2,&quot;min&quot;:0,&quot;max&quot;:2,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Movimiento&quot;},&quot;customCursor&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Interacción&quot;},&quot;workTitle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;PROYECTOS&quot;,&quot;options&quot;:[&quot;PROYECTOS&quot;,&quot;WORKS&quot;,&quot;PROJECTS&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contenido&quot;}}">
+const __CONTENT = (() => { // CONTENIDO — edita aquí textos y proyectos. Las imágenes se pueden arrastrar directamente sobre cada placeholder.
+const site = {
+  name: 'Martín Soria',
+  role: 'Diseñador Gráfico & Medios Interactivos',
+  bio: 'Trabajo principalmente en diseño visual, identidad, motion y proyectos digitales. Me interesa experimentar con distintas formas de comunicar una idea, combinando una gráfica limpia con propuestas más experimentales.',
+  education: [
+    { school: 'Universidad San Francisco de Quito', lines: ['Diseño Gráfico Comunicacional — 5.º semestre', 'Diseño de Medios Interactivos — 2.º semestre'] }
+  ],
+  experience: [{ company: 'DOMO', role: 'Diseñador gráfico', period: '2022 — presente', note: 'Piezas gráficas y elementos publicitarios.' }],
+  skills: ['Identidad visual', 'Tipografía', 'Motion graphics', 'Edición de video', 'Contenido para redes', 'Fotografía'],
+  tools: ['Illustrator', 'Photoshop', 'After Effects', 'Premiere Pro', 'Processing'],
+  email: 'martinsoria7575@gmail.com',
+  phoneDisplay: '0995558885',
+  whatsapp: '593995558885',
+  whatsappMessage: 'Hola Martín, vi tu portafolio y me gustaría conversar contigo sobre un proyecto.',
+  location: 'Quito, Ecuador'
+};
+
+const categories = [
+  { id: 'posters', number: '01', title: 'Posters', subtitle: 'Graphic Design / Visual Communication' },
+  { id: 'packaging', number: '02', title: 'Packaging', subtitle: 'Brand Identity / Structural Design' },
+  { id: 'photography', number: '03', title: 'Fotografía', subtitle: 'Proyectos personales destacados' }
+];
+
+// Cada proyecto: category, title, year, description, image (URL o null = placeholder), secondaryImages, type, link, video (solo motion)
+const projects = [
+  { id: 'p1', category: 'posters', title: 'Afiche de película — Abismo', year: '[YEAR]', description: '[PROJECT DESCRIPTION]', image: './assets/posters/abismo.jpg', secondaryImages: [], type: 'Poster', link: '' },
+  { id: 'p2', category: 'posters', title: 'Gentle Monster — Futuristic Art Exhibition', year: '[YEAR]', description: '[PROJECT DESCRIPTION]', image: './assets/posters/gentle-monster.jpg', secondaryImages: [], type: 'Poster', link: '' },
+  { id: 'p3', category: 'posters', title: 'Póster tipográfico — Absurdismo, Camus', year: '[YEAR]', description: '[PROJECT DESCRIPTION]', image: './assets/posters/absurdism.jpg', secondaryImages: [], type: 'Poster', link: '' },
+  { id: 'p4', category: 'posters', title: 'Disrupción — Diseño conceptual', year: '[YEAR]', description: '[PROJECT DESCRIPTION]', image: './assets/posters/tenedor.jpg', secondaryImages: [], type: 'Poster', link: '' },
+  { id: 'p5', category: 'posters', title: 'Marcus — Crisis de la identidad humana', year: '[YEAR]', description: '[PROJECT DESCRIPTION]', image: './assets/posters/crisis-identidad.jpg', secondaryImages: [], type: 'Poster', link: '' },
+  { id: 'k1', category: 'packaging', title: 'Tech Deck — Fingerskate', year: '[YEAR]', description: 'El empaque tiene una doble funcionalidad: contiene el producto y, al abrirlo, se transforma en una rampa para practicar trucos. Una propuesta de ecodiseño que busca extender la vida útil del packaging.', image: './assets/packaging/techdeck-box.webp', secondaryImages: [], type: 'Packaging', link: '' },
+  { id: 'k2', category: 'packaging', title: '[PROJECT TITLE]', year: '[YEAR]', description: '[PROJECT DESCRIPTION]', image: null, secondaryImages: [], type: 'Packaging', link: '' },
+  { id: 'k3', category: 'packaging', title: '[PROJECT TITLE]', year: '[YEAR]', description: '[PROJECT DESCRIPTION]', image: null, secondaryImages: [], type: 'Packaging', link: '' },
+  { id: 'f1', category: 'photography', title: 'Proyecto: Gráfica popular', year: '[YEAR]', description: 'La Floresta', image: './assets/photos/photo-01.jpg', secondaryImages: [], type: 'Photography', link: '' },
+  { id: 'f2', category: 'photography', title: 'Proyecto: Paisaje interno', year: '[YEAR]', description: 'Biblioteca USFQ', image: './assets/photos/photo-02.jpg', secondaryImages: [], type: 'Photography', link: '' },
+  { id: 'f3', category: 'photography', title: 'Proyecto: Identidad del trabajador quiteño', year: '[YEAR]', description: 'Vicente', image: './assets/photos/photo-03.jpg', secondaryImages: [], type: 'Photography', link: '' },
+  { id: 'f4', category: 'photography', title: 'Proyecto: Documental sobre la religión', year: '[YEAR]', description: 'Iglesia de La Magdalena', image: './assets/photos/photo-04.jpg', secondaryImages: [], type: 'Photography', link: '' }
+];
+
+ return { site, projects }; })();
+const FALLBACK_SITE = { name: 'Martín Soria', role: 'Diseñador Gráfico & Medios Interactivos', bio: '', education: [], experience: [], skills: [], tools: [], email: 'martinsoria7575@gmail.com', phoneDisplay: '0995558885', whatsapp: '593995558885', whatsappMessage: 'Hola Martín, vi tu portafolio y me gustaría conversar contigo sobre un proyecto.', location: 'Quito, Ecuador' };
+const ph = (id, type) => ({ id, type, title: '[PROJECT TITLE]', year: '[YEAR]', description: '[PROJECT DESCRIPTION]', image: null, video: '' });
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const ease = t => t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+const smooth = (v, a, b) => clamp((v - a) / (b - a), 0, 1);
+
+class Component extends DCLogic {
+  state = { site: __CONTENT.site, projects: __CONTENT.projects, soundOn: true, loading: true, loadPct: 0, loadStatus: 'INITIALIZING PORTFOLIO_' };
+
+  // --- loading: progreso ligado a la carga real (fuentes + imágenes del hero), 1–2.2 s ---
+  startLoader() {
+    const t0 = performance.now(), MIN = 1100, MAX = 3000;
+    const steps = ['INITIALIZING PORTFOLIO_', 'LOADING VISUAL SYSTEM_', 'LOADING PROJECTS_', 'ESTABLISHING CONNECTION_', 'SYSTEM READY_'];
+    let real = 0; const tasks = [];
+    const imgDone = src => new Promise(res => { const i = new Image(); i.onload = i.onerror = res; i.src = src; });
+    tasks.push(imgDone('./assets/hero-bg.png'), imgDone('./assets/hero-title.png'));
+    const vid = document.querySelector('[data-fx="hero-bg"]');
+    if (vid && vid.tagName === 'VIDEO') {
+      vid.load(); this.extractFrames(vid); tasks.push(new Promise(res => { if (vid.readyState >= 1) return res(); vid.addEventListener('loadedmetadata', res, { once: true }); setTimeout(res, 2500); })); }
+    if (document.fonts && document.fonts.load) tasks.push(document.fonts.load('400 100px "DX Sitrus"').catch(() => {}), document.fonts.load('900 100px "SF Pro Display"').catch(() => {}), document.fonts.load('500 16px "SF Pro Display"').catch(() => {}));
+    tasks.forEach(p => p.then(() => { real += 1 / tasks.length; }));
+    const tickL = () => {
+      const t = performance.now() - t0;
+      const target = Math.min(1, Math.max(real * 0.9 + (t / MIN) * 0.1, t / MAX));
+      const pct = Math.min(100, Math.round(Math.max(this.state.loadPct, target * 100 - (Math.random() * 6)) + (Math.random() < 0.5 ? 1 : 3)));
+      const done = real >= 0.999 && t >= MIN || t >= MAX;
+      const shown = done ? 100 : Math.min(pct, 97);
+      const status = steps[Math.min(steps.length - 1, Math.floor(shown / 100 * (steps.length - 1) + (done ? 1 : 0)))];
+      this.setState({ loadPct: shown, loadStatus: status });
+      if (done) return this.finishLoader();
+      this.loadTimer = setTimeout(tickL, 70 + Math.random() * 90);
+    };
+    tickL();
+  }
+  // Pre-decodifica N frames a bitmaps: el scrub por scroll dibuja en canvas (instantáneo en ambas direcciones, sin seeks del decoder)
+  async extractFrames(vid) {
+    const mobile = innerWidth < 760, N = mobile ? 40 : 64, W = mobile ? 640 : 1024;
+    try {
+      await new Promise((res, rej) => { if (vid.readyState >= 1) return res(); vid.addEventListener('loadedmetadata', res, { once: true }); vid.addEventListener('error', rej, { once: true }); });
+      try { await vid.play(); vid.pause(); } catch (e) {}
+      const dur = vid.duration, H = Math.round(W * vid.videoHeight / vid.videoWidth) || Math.round(W * 9 / 16);
+      const frames = [];
+      for (let i = 0; i < N; i++) {
+        const t = (i / (N - 1)) * Math.max(0, dur - 0.08);
+        // espera a que el rango esté descargado antes de buscar; el seek solo cuenta cuando el video realmente está en t
+        await new Promise(res => { const ok = () => { const b = vid.buffered; for (let j = 0; j < b.length; j++) if (b.start(j) <= t && b.end(j) >= Math.min(t + 0.05, dur)) return true; return false; }; if (ok()) return res(); const chk = () => { if (ok()) { vid.removeEventListener('progress', chk); res(); } }; vid.addEventListener('progress', chk); });
+        await new Promise(res => { const done = () => { if (Math.abs(vid.currentTime - t) > 0.08) return; vid.removeEventListener('seeked', done); res(); }; vid.addEventListener('seeked', done); vid.currentTime = t; });
+        const c = document.createElement('canvas'); c.width = W; c.height = H; c.getContext('2d', { alpha: false }).drawImage(vid, 0, 0, W, H);
+        frames.push(c);
+      }
+      this.frames = frames; this.frameIdx = -1;
+      const cv = document.querySelector('[data-fx="hero-canvas"]'); if (cv) { this.canvas = cv; this.resizeCanvas(); this.drawFrame(this.videoTarget ?? 0); cv.style.transition = 'opacity 0.5s ease'; cv.style.opacity = '1'; vid.style.opacity = '0'; }
+      this.dirty = true;
+    } catch (e) { console.warn('frames', e); }
+  }
+  resizeCanvas() {
+    const cv = this.canvas; if (!cv) return;
+    const dpr = Math.min(devicePixelRatio || 1, innerWidth < 760 ? 1.5 : 1.25);
+    cv.width = Math.round(cv.clientWidth * dpr); cv.height = Math.round(cv.clientHeight * dpr); this.frameIdx = -1;
+  }
+  drawFrame(p) {
+    const fr = this.frames, cv = this.canvas; if (!fr || !cv) return;
+    const i = Math.round(p * (fr.length - 1)); if (i === this.frameIdx) return; this.frameIdx = i;
+    const f = fr[i], ctx = cv.getContext('2d', { alpha: false });
+    const s = Math.max(cv.width / f.width, cv.height / f.height), w = f.width * s, hh = f.height * s;
+    ctx.drawImage(f, (cv.width - w) / 2, (cv.height - hh) / 2, w, hh);
+  }
+  finishLoader() {
+    const el = document.querySelector('[data-fx="loader"]');
+    const end = () => { document.documentElement.style.overflow = ''; this.dirty = true; this.setState({ loading: false }); };
+    if (!el || this.reduced) return end();
+    el.style.transition = 'clip-path 0.9s cubic-bezier(.7,0,.2,1), transform 0.9s cubic-bezier(.7,0,.2,1)';
+    el.style.clipPath = 'inset(0 0 100% 0)';
+    el.style.transform = 'translateX(-1.5%) skewX(-3deg)';
+    const hero = document.querySelector('[data-fx="hero-bg"]');
+    [hero, document.querySelector('[data-fx="hero-canvas"]')].forEach(el => { if (!el) return; el.style.transition = 'transform 1.6s cubic-bezier(.2,.7,.2,1)'; el.style.transform = 'scale(1)'; setTimeout(() => { el.style.transition = ''; }, 1700); });
+    setTimeout(end, 950);
+  }
+
+  componentDidMount() {
+    try { history.scrollRestoration = 'manual'; } catch (e) {}
+    scrollTo(0, 0);
+    ['[data-fx="hero-bg"]', '[data-fx="hero-canvas"]'].forEach(s => { const el = document.querySelector(s); if (el) el.style.transform = 'scale(1.15)'; });
+    document.documentElement.style.overflow = 'hidden';
+    this.startLoader();
+    this.safety = setTimeout(() => { if (this.state.loading) this.finishLoader(); }, 4000);
+    this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    this.fine = matchMedia('(pointer: fine)').matches;
+    // móvil: recorridos de scroll más cortos por sección (menos "tedio" con el dedo)
+    if (innerWidth < 760) document.querySelectorAll('[data-scene]').forEach(s => { const m = { hero: '170vh', work: '150vh', packaging: '240vh', photo: '260vh' }[s.dataset.scene]; if (m) s.style.height = m; });
+    this.q = s => document.querySelector(s);
+    this.lastY = -1; this.cur = { x: innerWidth / 2, y: innerHeight / 2, tx: innerWidth / 2, ty: innerHeight / 2, s: 1, ts: 1 };
+    this.onScroll = () => { this.dirty = true; };
+    this.onResize = () => { this.dirty = true; this.resizeCanvas(); };
+    addEventListener('scroll', this.onScroll, { passive: true });
+    addEventListener('resize', this.onResize);
+    this.onMove = e => { this.cur.tx = e.clientX; this.cur.ty = e.clientY; if (!this.cursorShown) { this.cursorShown = true; const c = this.q('[data-fx="cursor"]'); if (c) c.style.opacity = '1'; } };
+    this.onOver = e => { const t = e.target.closest && e.target.closest('[data-hover]'); this.cur.ts = t ? 1.6 : 1; if (t && this.state.soundOn) this.beep(1400, 0.035, 0.02); };
+    this.onDown = () => { this.unlockAudio(); if (this.state.soundOn) this.beep(520, 0.06, 0.03); };
+    if (this.fine && (this.props.customCursor ?? true)) {
+      document.documentElement.style.cursor = 'none';
+      addEventListener('pointermove', this.onMove, { passive: true });
+      document.addEventListener('pointerover', this.onOver);
+    }
+    document.addEventListener('pointerdown', this.onDown, { passive: true });
+    document.addEventListener('keydown', this.onDown, { passive: true });
+    this.io = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting && this.state.soundOn && this.ctx) this.beep(180, 0.18, 0.02, 'sine'); }), { threshold: 0.35 });
+    document.querySelectorAll('[data-scene]').forEach(el => this.io.observe(el));
+    this.dirty = true;
+    const loop = () => { this.tick(); this.raf = requestAnimationFrame(loop); };
+    this.raf = requestAnimationFrame(loop);
+  }
+
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf); clearTimeout(this.loadTimer); document.documentElement.style.overflow = '';
+    removeEventListener('scroll', this.onScroll); removeEventListener('resize', this.onResize);
+    removeEventListener('pointermove', this.onMove); document.removeEventListener('pointerover', this.onOver);
+    document.removeEventListener('pointerdown', this.onDown); document.removeEventListener('keydown', this.onDown);
+    if (this.io) this.io.disconnect();
+    document.documentElement.style.cursor = '';
+  }
+
+  // --- sound (Web Audio, muy sutil) ---
+  unlockAudio() { if (!this.ctx) { try { this.ctx = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) {} } else if (this.ctx.state === 'suspended') this.ctx.resume(); }
+  beep(freq, dur, gain, type = 'sine') {
+    if (!this.ctx || this.ctx.state !== 'running') return;
+    const now = this.ctx.currentTime; if (this.lastBeep && now - this.lastBeep < 0.07) return; this.lastBeep = now;
+    const o = this.ctx.createOscillator(), g = this.ctx.createGain(), f = this.ctx.createBiquadFilter();
+    o.type = type; o.frequency.setValueAtTime(freq, now); o.frequency.exponentialRampToValueAtTime(freq * 0.7, now + dur);
+    f.type = 'lowpass'; f.frequency.value = 2400;
+    g.gain.setValueAtTime(0, now); g.gain.linearRampToValueAtTime(gain, now + 0.008); g.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+    o.connect(f); f.connect(g); g.connect(this.ctx.destination); o.start(now); o.stop(now + dur + 0.02);
+  }
+
+  // --- scroll engine: escribe transform/opacity directamente, solo en escenas visibles ---
+  tick() {
+    const c = this.cur, dot = this.q('[data-fx="cursor"]');
+    if (dot && this.fine) {
+      if (Math.abs(c.tx - c.x) > 0.05 || Math.abs(c.ty - c.y) > 0.05 || Math.abs(c.ts - c.s) > 0.005) {
+        c.x += (c.tx - c.x) * 0.22; c.y += (c.ty - c.y) * 0.22; c.s += (c.ts - c.s) * 0.18;
+        dot.style.transform = `translate3d(${c.x}px,${c.y}px,0) scale(${c.s})`;
+      }
+    }
+    // video scrub: interpolado hacia el objetivo y solo un seek en vuelo a la vez
+    const v = this.video;
+    if (this.frames && this.videoTarget != null) { this.drawFrame(this.videoTarget); }
+    else if (v && v.duration && !v.seeking && this.videoTarget != null) {
+      const target = this.videoTarget * (v.duration - 0.08);
+      if (this.videoTime == null) this.videoTime = v.currentTime;
+      this.videoTime += (target - this.videoTime) * 0.16;
+      const step = this.videoTime < v.currentTime ? 1 / 12 : 1 / 30; // retroceder es caro para el decoder: pasos más largos
+      if (Math.abs(target - this.videoTime) > 0.004 && Math.abs(this.videoTime - v.currentTime) > step) { try { v.currentTime = this.videoTime; } catch (e) {} }
+    }
+    const y = scrollY;
+    if (!this.dirty && y === this.lastY) return;
+    this.dirty = false; this.lastY = y;
+    const vh = innerHeight, vw = innerWidth, mobile = vw < 760;
+    const k = (this.props.parallaxIntensity ?? 1) * (mobile ? 0.5 : 1);
+    const rm = this.reduced;
+    const heroRect = this.q('[data-scene="hero"]').getBoundingClientRect();
+    const heroP = clamp(-heroRect.top / (heroRect.height - vh), 0, 1);
+    const contactRect = this.q('[data-scene="contact"]').getBoundingClientRect();
+    const showUi = heroP > 0.85 && contactRect.top > vh * 0.6;
+    if (showUi !== this.uiShown) {
+      this.uiShown = showUi;
+      ['[data-fx="contact-btn"]'].forEach(s => { const el = this.q(s); if (!el) return; el.style.opacity = showUi ? '1' : '0'; el.style.transform = showUi ? 'translateY(0)' : 'translateY(12px)'; el.style.pointerEvents = showUi ? 'auto' : 'none'; el.setAttribute('aria-hidden', showUi ? 'false' : 'true'); });
+    }
+    if (rm) return;
+    // caché de escenas y de sus nodos: cero querySelector por frame tras el primer paso
+    if (!this.scenes) this.scenes = Array.from(document.querySelectorAll('[data-scene]')).map(sec => { const cache = new Map(); return { sec, name: sec.dataset.scene, $: s => { if (!cache.has(s)) cache.set(s, sec.querySelector(s)); return cache.get(s); }, all: s => { const key = '*' + s; if (!cache.has(key)) cache.set(key, sec.querySelectorAll(s)); return cache.get(key); } }; });
+    this.scenes.forEach(({ sec, name, $, all }) => {
+      const r = sec.getBoundingClientRect();
+      if (r.bottom < -vh * 0.2 || r.top > vh * 1.2) return;
+      const p = clamp(-r.top / Math.max(1, r.height - vh), 0, 1);
+      if (name === 'hero') {
+        if (this.state.loading) return;
+        const bg = $('[data-fx="hero-bg"]');
+        const sc = `scale(${1 + p * 0.12 * k})`; bg.style.transform = sc; const cv = $('[data-fx="hero-canvas"]'); if (cv) cv.style.transform = sc;
+        if (bg.tagName === 'VIDEO') { this.video = bg; this.videoTarget = p; }
+        const t = $('[data-fx="hero-title"]');
+        t.style.opacity = 1 - smooth(p, 0.1, 0.65);
+        $('[data-fx="hero-veil"]').style.opacity = smooth(p, 0.35, 1) * 0.98;
+        $('[data-fx="hero-ui"]').style.opacity = 1 - smooth(p, 0, 0.2);
+        const ln = $('[data-fx="scroll-line"]'); if (ln) ln.style.transform = `scaleX(${0.4 + 0.6 * (0.5 + 0.5 * Math.sin(performance.now() / 700))})`;
+        this.dirty = p < 0.05;
+      } else if (name === 'about') {
+        const q = smooth(-r.top, 0, vh * 0.9);
+        const lb = $('[data-fx="about-label"]'); if (lb) { const vis = smooth(q, 0.2, 0.6) * (1 - smooth(p, 0.7, 0.95)); lb.style.opacity = vis; lb.style.transform = `translateY(${(1 - vis) * -8}px)`; }
+        const ln = $('[data-fx="about-line"]'); if (ln) { const lv = smooth(q, 0.1, 0.7); ln.style.transform = `scaleX(${lv * (0.6 + 0.4 * (1 - smooth(p, 0.5, 1)))})`; ln.style.opacity = lv * (1 - smooth(p, 0.8, 1)); }
+        const nm = $('[data-fx="about-name"]'); nm.style.transform = `scale(${1 - q * 0.38})`; nm.style.opacity = 1 - smooth(p, 0.8, 1);
+        const g = $('[data-fx="about-grid"]'); g.style.opacity = smooth(q, 0.15, 0.6) * (1 - smooth(p, 0.8, 1)); g.style.transform = `translateY(${(1 - smooth(q, 0.15, 0.6)) * 24}px)`;
+      } else if (name === 'work') {
+        const w = $('[data-fx="work-title"]');
+        w.style.transform = `translateX(${(0.5 - p) * 70 * k}vw)`;
+        w.style.opacity = 1;
+        const tex = $('[data-fx="work-tex"]'); tex.style.opacity = Math.sin(p * Math.PI) * 0.55; tex.style.transform = `translateY(${(p - 0.5) * 12 * k}%) scale(${1.05 + p * 0.1})`;
+      } else if (name === 'posters') {
+        const t = $('[data-fx="cat-title"]'); const tr = t.getBoundingClientRect(); t.style.transform = `scale(${1 - smooth(vh * 0.4 - tr.top, 0, vh * 0.8) * 0.3})`;
+        all('[data-fx="tile"]').forEach(el => {
+          const er = el.getBoundingClientRect(); const q = clamp((vh - er.top) / (vh + er.height), 0, 1);
+          const depth = +el.dataset.depth, reveal = ease(smooth(q, 0, 0.35));
+          el.style.transform = `translate3d(0,${(0.5 - q) * depth * 22 * k + (1 - reveal) * 60}px,0) scale(${0.96 + reveal * 0.04})`;
+          el.style.opacity = reveal;
+        });
+      } else if (name === 'packaging') {
+        // fondo chevron: deriva lenta y gira apenas; logo: emerge grande detrás y se aleja; caja: sube, se asienta y flota
+        $('[data-fx="pack-bg"]').style.transform = `translate3d(0,${(0.5 - p) * 14 * k}%,0) rotate(${(p - 0.5) * 4 * k}deg) scale(1.08)`;
+        const lg = $('[data-fx="pack-logo"]');
+        const lgIn = ease(smooth(p, 0.05, 0.4));
+        // logo: aparece en el centro y se acomoda a la izquierda, a la par de la caja (mitad de pantalla)
+        const wide = vw >= 760;
+        const lgX = wide ? -22 : 0, lgY = wide ? 0 : -26;
+        lg.style.transform = `translate(-50%,-50%) translate3d(${lgIn * lgX}vw,${lgIn * lgY}vh,0) scale(${1.25 - lgIn * 0.35}) rotate(${-6 + lgIn * 3}deg)`;
+        lg.style.opacity = smooth(p, 0.02, 0.18) * (1 - smooth(p, 0.9, 1));
+        // caja: sube y se asienta a la derecha del logo
+        const bx = $('[data-fx="pack-box"]');
+        const bxIn = ease(smooth(p, 0.18, 0.5));
+        const bxX = wide ? 16 : 0, bxY = wide ? 2 : 12;
+        bx.style.transform = `translate(-50%,-50%) translate3d(${bxIn * bxX}vw,${(1 - bxIn) * 90 + bxIn * bxY + Math.sin(p * Math.PI * 2) * 1.5}vh,0) scale(${0.8 + bxIn * 0.2}) rotate(${(1 - bxIn) * 8 - 2}deg)`;
+        bx.style.opacity = smooth(p, 0.18, 0.3);
+        const t = $('[data-fx="pack-title"]'); t.style.transform = `scale(${1 - smooth(p, 0.1, 0.6) * 0.45})`; t.style.opacity = 1 - smooth(p, 0.6, 0.95);
+        const pm = $('[data-fx="pack-meta"]'); const mv = smooth(p, 0.45, 0.6) * (1 - smooth(p, 0.88, 1)); pm.style.opacity = mv; pm.style.transform = `translateY(${(1 - mv) * 12}px)`;
+      } else if (name === 'photo') {
+        const tr = $('[data-fx="film-track"]'); const max = Math.max(0, tr.scrollWidth - vw * (mobile ? 0.9 : 0.55));
+        tr.style.transform = `translate3d(${-ease(p) * max}px,0,0)`;
+        let focus = 1, best = 1e9; const items = all('[data-fx="film"]');
+        items.forEach((el, i) => {
+          const er = el.getBoundingClientRect(); const c = (er.left + er.width / 2 - vw / 2) / vw;
+          const f = clamp(1 - Math.abs(c) * 1.5, 0, 1);
+          el.style.transform = `translate3d(0,${(1 - f) * 2}vh,0) scale(${0.9 + f * 0.1})`; el.style.opacity = 0.4 + f * 0.6;
+          const cp = el._cap || (el._cap = el.querySelector('[data-fx="film-cap"]')); if (cp) { const cf = smooth(f, 0.55, 0.95); cp.style.opacity = cf; cp.style.transform = `translateY(${(1 - cf) * 10}px)`; }
+          if (Math.abs(c) < best) { best = Math.abs(c); focus = i + 1; }
+        });
+        const hd = $('[data-fx="photo-head"]'); hd.style.transform = `translateY(${-smooth(p, 0.05, 0.4) * 4}vh) scale(${1 - smooth(p, 0.05, 0.4) * 0.35})`;
+
+      } else if (name === 'contact') {
+        const q = smooth(vh - r.top, 0, vh);
+        $('[data-fx="contact-title"]').style.transform = `translateY(${(1 - ease(q)) * 14 * k}vh)`;
+        $('[data-fx="contact-tex"]').style.transform = `translateY(${(0.5 - q) * 10 * k}%)`;
+      }
+    });
+  }
+
+  renderVals() {
+    const site = this.state.site, P = this.state.projects;
+    // slot: id de persistencia del <image-slot>; 'v2' evita imágenes arrastradas antiguas que tapaban el src
+    const get = (id, type) => { const o = P.find(p => p.id === id) || ph(id, type); return { ...o, slot: `${id}-v2` }; };
+    const msg = encodeURIComponent(site.whatsappMessage);
+    return {
+      site,
+      firstName: (site.name || '').split(' ')[0],
+      lastName: (site.name || '').split(' ').slice(1).join(' '),
+      skillsLine: (site.skills || []).join(' / '),
+      toolsLine: (site.tools || []).join(' · '),
+      workTitle: this.props.workTitle ?? 'PROYECTOS',
+      poster1: get('p1', 'Poster'), poster2: get('p2', 'Poster'), poster3: get('p3', 'Poster'), poster4: get('p4', 'Poster'), poster5: get('p5', 'Poster'),
+      pack1: get('k1', 'Packaging'), pack2: get('k2', 'Packaging'), pack3: get('k3', 'Packaging'),
+      photo1: get('f1', 'Photography'), photo2: get('f2', 'Photography'), photo3: get('f3', 'Photography'), photo4: get('f4', 'Photography'),
+      whatsappUrl: `https://wa.me/${site.whatsapp}?text=${msg}`,
+      mailto: `mailto:${site.email}?subject=${encodeURIComponent('Proyecto — vi tu portafolio')}`,
+      loading: this.state.loading,
+      loadPct: `${this.state.loadPct}%`,
+      loadWidth: `${this.state.loadPct}%`,
+      loadBlocks: '█'.repeat(Math.round(this.state.loadPct / 10)) + '░'.repeat(10 - Math.round(this.state.loadPct / 10)),
+      loadStatus: this.state.loadStatus,
+      soundOn: this.state.soundOn,
+      onContactClick: () => { if (this.state.soundOn) this.beep(660, 0.09, 0.03); }
+    };
+  }
+}
+</script>
+</body>
+</html>
